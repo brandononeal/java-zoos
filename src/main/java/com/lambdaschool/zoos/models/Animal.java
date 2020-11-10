@@ -1,10 +1,12 @@
 package com.lambdaschool.zoos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "animals")
-public class Animal
+public class Animal extends Auditable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,13 +16,23 @@ public class Animal
             unique = true)
     private String animaltype;
 
+    // ??
+    @ManyToOne
+    @JoinColumn(name = "zooid")
+    @JsonIgnoreProperties(value = "animals",
+        allowSetters = true)
+    private Zoo zoo;
+
     public Animal()
     {
     }
 
-    public Animal(String animaltype)
+    public Animal(
+        String animaltype,
+        Zoo zoo)
     {
         this.animaltype = animaltype;
+        this.zoo = zoo;
     }
 
     public long getAnimalid()
@@ -41,5 +53,15 @@ public class Animal
     public void setAnimaltype(String animaltype)
     {
         this.animaltype = animaltype;
+    }
+
+    public Zoo getZoo()
+    {
+        return zoo;
+    }
+
+    public void setZoo(Zoo zoo)
+    {
+        this.zoo = zoo;
     }
 }
