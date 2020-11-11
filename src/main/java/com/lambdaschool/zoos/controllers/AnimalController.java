@@ -1,6 +1,6 @@
 package com.lambdaschool.zoos.controllers;
 
-import com.lambdaschool.zoos.models.Animal;
+import com.lambdaschool.zoos.models.ZooAnimalsCount;
 import com.lambdaschool.zoos.services.AnimalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class AnimalController
         produces = "application/json")
     public ResponseEntity<?> listAnimalsWithZooCount()
     {
-        List<Animal> animalList = animalService.findAll();
+        List<ZooAnimalsCount> animalList = animalService.countZooAnimals();
         return new ResponseEntity<>(animalList, HttpStatus.OK);
     }
 }

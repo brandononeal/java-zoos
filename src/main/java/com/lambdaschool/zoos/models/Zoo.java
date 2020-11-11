@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "zoos")
@@ -24,12 +26,12 @@ public class Zoo extends Auditable
     @JsonIgnoreProperties(value = "zoo")
     private List<Telephone> telephones = new ArrayList<>();
 
-    // ??
     @OneToMany(mappedBy = "zoo",
         cascade = CascadeType.ALL,
         orphanRemoval = true)
-    @JsonIgnoreProperties(value = "zoo")
-    private List<Animal> animals = new ArrayList<>();
+    @JsonIgnoreProperties(value = "zoo",
+        allowSetters = true)
+    private Set<ZooAnimals> animals = new HashSet<>();
 
     public Zoo()
     {
@@ -37,12 +39,10 @@ public class Zoo extends Auditable
 
     public Zoo(
         String zooname,
-        List<Telephone> telephones,
-        List<Animal> animals)
+        List<Telephone> telephones)
     {
         this.zooname = zooname;
         this.telephones = telephones;
-        this.animals = animals;
     }
 
     public long getZooid()
@@ -75,12 +75,12 @@ public class Zoo extends Auditable
         this.telephones = telephones;
     }
 
-    public List<Animal> getAnimals()
+    public Set<ZooAnimals> getAnimals()
     {
         return animals;
     }
 
-    public void setAnimals(List<Animal> animals)
+    public void setAnimals(Set<ZooAnimals> animals)
     {
         this.animals = animals;
     }

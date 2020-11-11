@@ -1,10 +1,10 @@
 package com.lambdaschool.zoos.services;
 
-import com.lambdaschool.zoos.models.Animal;
+import com.lambdaschool.zoos.models.ZooAnimalsCount;
 
 import java.util.List;
 
 public interface AnimalService
 {
-    List<Animal> findAll();
+    List<ZooAnimalsCount> countZooAnimals();
 }
